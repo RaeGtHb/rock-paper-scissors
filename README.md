@@ -105,7 +105,8 @@ let computerScore = 0
 
 
 ----> Fourth Create a Function playRound
---> 
+--> the algorithm of the game
+--> in here it will add the score and tell who win or lose
 function playRound(humanChoice, computerChoice) {
 
 }
@@ -116,6 +117,8 @@ const computerSelection = getComputerChoice();
 playRound(humanSelection, computerSelection);
 
 
+----> Fifth Create a Function playGame
+--> it has 5 rounds
 function playGame() {
-    --5 rounds
+
 }
