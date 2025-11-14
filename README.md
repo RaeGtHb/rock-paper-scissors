@@ -16,6 +16,7 @@ const rock = 0;
 const paper = 1;
 const scissors = 2;
 
+
 ----> First Create a Function getComputerChoice()
 --> this code is for when you have a range
 function getComputerChoice(max, min){
@@ -35,46 +36,22 @@ function getComputerChoice(max) {
 console.log(getComputerChoice(3));
 
 
---> this code is complete for function
-function getComputerPick(){
-  function getComputerChoice(max, min){
-    return Math.floor(Math.random() * (max - min)) + min;
-  }
-
-  let choices = getComputerChoice(1, 4);
-
-  if (choices === 1) {
-    console.log("Rock")
-  } else if (choices === 2) {
-    console.log("Paper")
-  } else {
-    console.log("Scissors")
-  }
-
-  getComputerChoice()
-}
-
-getComputerPick()
-
-
---> for more clearer code
-function getComputerPick() {
-  function getComputerChoice(min, max) {
+--> this code has a return so it will be defined as a return value
+function getComputerChoice() {
+  function getComputerPick(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
-  const computerChoiceNumber = getComputerChoice(1, 3);
+  const computerChoiceNumber = getComputerPick(1, 3);
   let computerPick;
 
   if (computerChoiceNumber === 1) {
-    computerPick = "Rock";
+    return computerPick = "Rock";
   } else if (computerChoiceNumber === 2) {
-    computerPick = "Paper";
+    return computerPick = "Paper";
   } else {
-    computerPick = "Scissors";
+    return computerPick = "Scissors";
   }
-
-  console.log(computerPick);
 }
 
 getComputerPick();
@@ -99,6 +76,26 @@ function getHumanChoice() {
 
 getHumanChoice()
 
+
+---> this code will tell you that you pick a string value with a case sensitive
+function getHumanChoice() {
+  const pick = prompt("ROCK? PAPER? SCISSORS?")
+  const pickLower = pick.toLowerCase().toUpperCase();
+
+  if (pickLower === 'ROCK') {
+    return 'Rock';
+  } else if (pickLower === 'PAPER') {
+    return 'Paper'
+  } else if (pickLower === 'SCISSORS') {
+    return 'Scissors'
+  } else {
+    console.log("Invalid Input")
+  }
+}
+
+getHumanChoice();
+
+
 ----> Third Create a Variables to score the game
 let humanScore = 0
 let computerScore = 0
@@ -108,7 +105,20 @@ let computerScore = 0
 --> the algorithm of the game
 --> in here it will add the score and tell who win or lose
 function playRound(humanChoice, computerChoice) {
+  console.log(`You chose: ${humanChoice}`);
+  console.log(`Computer chose: ${computerChoice}`);
 
+  if (humanChoice === computerChoice) {
+    console.log("Draw!")
+  } else if (
+    (humanChoice === 'Rock' && computerChoice === 'Scissors') || 
+    (humanChoice === 'Paper' && computerChoice === 'Rock') || 
+    (humanChoice === 'Scissors' && computerChoice === 'Paper'))
+  {
+    console.log("You Win!")
+  } else {
+    console.log("Computer Win!")
+  }
 }
 
 const humanSelection = getHumanChoice();
@@ -117,8 +127,75 @@ const computerSelection = getComputerChoice();
 playRound(humanSelection, computerSelection);
 
 
+--> this code is for more details in winning or losing
+function playRound(humanChoice, computerChoice) {
+  console.log(`You chose: ${humanChoice}`);
+  console.log(`Computer chose: ${computerChoice}`);
+
+  // for ()
+  if (humanChoice === 'Rock' && computerChoice === 'Scissors') {
+    console.log("You Win! Rock beats Scissors")
+    humanScore++;
+    console.log(humanScore)
+    console.log(computerScore)
+  } else if (humanChoice === 'Paper' && computerChoice === 'Rock') {
+    console.log("You Win! Paper beats Rock")
+    humanScore++;
+    console.log(humanScore)
+    console.log(computerScore)
+  } else if (humanChoice === 'Scissors' && computerChoice === 'Paper') {
+    console.log("You Win! Scissors beats Paper")
+    humanScore++;
+    console.log(humanScore)
+    console.log(computerScore)
+  } else if (humanChoice === 'Rock' && computerChoice === 'Paper') {
+    console.log("You Lose! Paper beats Rock")
+    computerScore++;
+    console.log(humanScore)
+    console.log(computerScore)
+  } else if (humanChoice === 'Paper' && computerChoice === 'Scissors') {
+    console.log("You Lose! Scissors beats Paper")
+    computerScore++;
+    console.log(humanScore)
+    console.log(computerScore)
+  } else if (humanChoice === 'Scissors' && computerChoice === 'Rock') {
+    console.log("You Lose! Rock beats Scissors")
+    computerScore++;
+    console.log(humanScore)
+    console.log(computerScore)
+  } else {
+    console.log("Draw!")
+    console.log(humanScore)
+    console.log(computerScore)
+  }
+}
+
+const humanSelection = getHumanChoice();
+const computerSelection = getComputerChoice()
+
+playRound(humanSelection, computerSelection)
+
+
 ----> Fifth Create a Function playGame
 --> it has 5 rounds
 function playGame() {
+  const humanSelection = getHumanChoice();
+  const computerSelection = getComputerChoice();
 
+  playRound(humanSelection, computerSelection)
+}
+
+for (let rounds = 1; rounds <= 5; rounds++) {
+  console.log(`Round ${rounds}`);
+  playGame();
+
+  if (rounds === 5) {
+    if (humanScore >= computerScore) {
+      console.log("Victory!")
+    } else if (humanScore <= computerScore) {
+      console.log("Defeat!")
+    } else {
+      console.log("Tie!")
+    }
+  }
 }
